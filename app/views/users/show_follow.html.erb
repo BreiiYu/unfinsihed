@@ -1,0 +1,22 @@
+<% provide(:title, @title) %>
+<div class="row">
+    <aside class="col-md-4">
+        <section class="jumbotron">
+            <p class="lead text-center"><%= @user.name %></p>
+            <%= render 'activities/fuser' %>
+            <%= link_to raw("<p class='text-center'>view my profile</p>"), @user %>
+        </section>
+    </aside>
+    <div class="col-md-8">
+        <h3><%= @title %></h3>
+            <% if @users.any? %>
+                <% @users.each do |user| %>
+                    <ul class="users_follow">
+                        <%# user is duplicate am I halluciating???? %>
+                        <%= render 'user' %>
+                    </ul>
+                <% end %>
+            <%= will_paginate %>
+        <% end %>
+    </div>
+</div> 

@@ -1,0 +1,18 @@
+<% provide(:title, "Create Word") %>
+<div class="form">
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %> alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <%= value %>
+        </div>
+    <% end %>
+    <h1 class="text-center">
+    Create Word
+</div>
+    <div class="container">
+        <div class="col-lg-6 mx-auto">
+            <%= render 'newword' %>
+            
+        </div>
+    </div>
+</div>

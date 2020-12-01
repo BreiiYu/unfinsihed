@@ -1,0 +1,23 @@
+<% @feed.each do |activity| %>
+    <li> 
+        <p><%= @user.name %>
+        <%if activity.actionable_type == "Relationship"%>
+            Followed <% @followact = User.select("users.*")
+                                    .joins("LEFT JOIN relationships ON relationships.id = users.id LEFT JOIN activities ON activities.actionable_id = relationships.id")
+                                    .where("relationships.id = #{activity.actionable_id}") %>
+            
+            <% @followact.each do |follow| %>
+                <%= link_to follow.name, follow %>
+            <% end %>
+
+        <% elsif activity.actionable_type == "Lesson" %>
+            Learned <% @lessonact = Lesson.select("categories.*")
+                                    .joins("LEFT JOIN categories ON lessons.category_id = categories.id")
+                                    .where("lessons.id = #{activity.actionable_id}") %>
+            
+            <% @lessonact.each do |title| %>
+                <%= link_to title.title, results_url(title) %>
+            <% end %>
+        <% end %></p>
+    </li>
+<% end %>

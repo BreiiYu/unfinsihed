@@ -1,0 +1,44 @@
+<% provide(:title, 'Users') %>
+<div class="form content">
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %> alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <%= value %>
+        </div>
+    <% end %>
+    <h1 class="text-center">List of Category</h1>
+    <div class="container">
+        <% if (current_user.account_type == 1) %>
+            <%= link_to raw('<button type="button" class="btn btn-info btn-sm pull-right">Create Category</button>'), new_category_path%>
+        <% end %>
+        <ul class="category">
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                        <% if (current_user.account_type == 1) %>
+                            <th colspan="2">Action</th>
+                        <% end %>
+                    </tr>
+                </thead>
+                <% @categories.each do |category| %>
+                <tbody>
+                    <tr>
+                        <% if (current_user.account_type == 1) %>
+                            <td><%= link_to category.title, cataword_path(category.id) %></td>
+                        <% else %>
+                            <td><%= category.title %></td>
+                        <% end %>
+                            <td><%= category.description %></td>
+                        <% if (current_user.account_type == 1) %>
+                            <td><%= link_to "Edit", edit_category_path(category) %></td>
+                            <td><%= link_to 'Delete', category_path(category), method: :delete, data: { confirm: "You sure?" } %></td>
+                        <% end %>
+                    </tr>
+                </tbody>
+                <% end %>
+            </table>
+        </ul>
+    </div>
+</div>

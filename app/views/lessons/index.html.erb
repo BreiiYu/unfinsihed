@@ -1,0 +1,39 @@
+<% provide(:title, 'Lessons') %>
+<div class="form content">
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %> alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <%= value %>
+        </div>
+    <% end %>
+    <div class="row">
+    <% @lessons.each do |b| %>
+        <div class="col-md-5 mx-1">
+                <% if @counter = Word.where(category_id: b.id).count != 0 %>
+                    <div class="jumbotron d-flex justify-content-center">
+                        <%= form_for(@newlesson) do |f| %>
+                            <h4><%= b.title %></h4>
+                            <p><%= b.description %></p>
+                            <%= f.hidden_field :user_id, placeholder: "User_id", value: current_user.id %>
+                            <%= f.hidden_field :category_id, placeholder: "Category_id", value: b.id %>
+                            <% @lesson = Lesson.where(category_id: b.id, user_id: current_user.id) %>
+                                <% if Answer.where(lesson_id: @lesson.ids).any? == true %>
+                                    <%= link_to "View Results", results_url(b.id) , class: "btn btn-outline-info"  %>
+                                <% else %>
+                                    <%= f.submit "Learn", class: "btn btn-info"  %>
+                                <% end %>
+                        <% end %>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+<%# https://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-any-3F %>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+        <%if @words.any?%>
+            <%= will_paginate %>
+        <% end %>
+        </div>
+    </div>
+</div>

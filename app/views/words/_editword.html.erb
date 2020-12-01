@@ -1,0 +1,25 @@
+<%= form_for(@word) do |f| %>
+    <div class="form-group">
+        <%= f.hidden_field :category_id, value: @word.category_id , style: "min-width: 300px" %>
+        <%= f.label :word %>
+        <%= f.text_field :word, class: "form-control" %>
+    </div>
+
+    <%= f.fields_for :choices do |c| %>
+    <div class="form-group">
+        <div class="row">
+            <%= c.hidden_field :id %>
+            <%= c.label :choices %>
+            <%= c.text_field :choices, class: "form-control" %>
+        <div class="form-check">
+            <%= c.check_box :correct%>
+            <label class="form-check-label" for="formCheck-1">Choose one correct answer.</label>
+        </div>
+    </div>
+    <% end %>
+    
+    <%#= render 'choices/newchoice'%>
+    <div class="form-group">
+        <%= f.submit "Create Word", class: "btn btn-block btn-secondary" %>
+    </div>
+<% end %>

@@ -1,0 +1,32 @@
+<% provide(:title, "Topic: #{@categories.title}") %>
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %> alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= value %>
+    </div>
+<% end %>
+<h3 class="text-center my-5"><%= @categories.title %> - <%= @anscntr +1 %> out of <%= @ttlcntr %> </h5>
+<div class="row">
+    <div class="col-lg-5 mx-auto">
+        <div class="jumbotron">
+            <% @words.each do |wrd| %>
+                <h5 class="text-center mb-0"><%= wrd.word %></h5>
+                <%= form_for(@answers) do |f| %>
+                    <% wrd.choices.each do |c|%>
+                        <div class="form-check word-style">
+                            <%= f.radio_button :choice_id, c.id, required: 'required' %>
+                            <%= f.hidden_field :lesson_id, value: @lesson_id.ids %>
+                            <%= f.hidden_field :word_id, value: wrd.id %> 
+                            <%= f.hidden_field :category_id, value: @categories.id %> 
+                            <label><%= c.choices %></label>
+                        </div>
+                    <% end %>
+                    <div class="form-group">
+                        <%= f.submit "Submit", class: "btn btn-info" %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>
+

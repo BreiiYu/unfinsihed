@@ -1,0 +1,19 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+    <div class="jumbotron">
+        <p class="lead text-center"><%= @user.name %></p>
+        <section>
+            <%= render 'activities/fuser'%>
+            <p class="lead text-center">Words Learned: <%= @counter = Lesson.select("lessons.category_id lessons.id, lessons.user_id , lessons.created_at, lessons.updated_at")
+                                                                .joins("LEFT JOIN categories ON lessons.category_id = categories.id LEFT JOIN answers ON answers.lesson_id = lessons.id")
+                                                                .where("lessons.user_id = #{current_user.id}").distinct.count("lessons.category_id") %></p>
+            <%= render 'followform' %>
+        </section>
+    </div>
+    <div class="col-md">
+        <h1 class="lead">Activities</h1>
+        <ul>
+            <%= render 'activities/dispact'%>
+        </ul>
+    </div>
+</div>

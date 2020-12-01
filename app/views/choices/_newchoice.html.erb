@@ -1,0 +1,14 @@
+<%= form_for :choice do |g| %>
+    <div class="form-group">
+        <div class="row">
+            <%= g.label :choices %>
+            <%= g.text_field :choices, class: "form-control" %>
+        <div class="form-check">
+            <%= g.check_box :correct {:multiple => false}, "1"%>
+            <label class="form-check-label" for="formCheck-1">Choose one correct answer.</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <%= g.submit "Update", class: "btn btn-block btn-secondary" %>
+    </div>
+<% end %>
